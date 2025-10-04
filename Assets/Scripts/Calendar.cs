@@ -12,6 +12,7 @@ namespace DefaultNamespace
         [SerializeField] private int _currentDay;
         [SerializeField] private bool _isWorking;
         [SerializeField] private Slider _slider;
+        [SerializeField] private ResultWindow _resultWindow;
 
         private void Start()
         {
@@ -34,20 +35,28 @@ namespace DefaultNamespace
         {
         }
 
-        private void BeginAutumn()
+        private void EndSummer()
         {
+            OpenResultWindow("SUMMER");
         }
 
-        private void BeginWinter()
+        private void EndAutumn()
         {
+            OpenResultWindow("AUTUMN");
         }
 
-        private void BeginSpring()
+        private void EndWinter()
         {
+            OpenResultWindow("WINTER");
         }
 
         private void EndYear()
         {
+        }
+
+        private void OpenResultWindow(string season)
+        {
+            _resultWindow.Show(season);
         }
 
         private IEnumerator YearCo()
@@ -60,13 +69,13 @@ namespace DefaultNamespace
                 _slider.value = _currentDay;
 
                 if (_currentDay == 100)
-                    BeginAutumn();
+                    EndSummer();
 
                 if (_currentDay == 200)
-                    BeginWinter();
+                    EndAutumn();
 
                 if (_currentDay == 300)
-                    BeginSpring();
+                    EndWinter();
 
                 if (_currentDay == 400)
                     EndYear();

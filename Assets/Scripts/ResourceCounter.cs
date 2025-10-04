@@ -43,5 +43,19 @@ namespace DefaultNamespace
                 _slots[i].sprite = i < CurrentCount ? _sprite : _emptySprite;
             }
         }
+
+        public List<Sprite> GetFilledSprites()
+        {
+            var result = new List<Sprite>();
+            foreach (var slot in _slots)
+            {
+                if (slot.sprite != _emptySprite)
+                {
+                    result.Add(slot.sprite);
+                }
+            }
+
+            return result;
+        }
     }
 }
