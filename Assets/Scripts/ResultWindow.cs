@@ -14,13 +14,29 @@ namespace DefaultNamespace
         [SerializeField] private Sprite _emptySprite;
         [SerializeField] private PriestMoves _priest;
         [SerializeField] private List<Image>  _priestResultSlots;
+        private (int, int) _score = (0, 0);
+        [SerializeField] private TextMeshProUGUI _scoreText;
 
         public void Show(string season)
         {
             _window.SetActive(true);
-            _title.text = $"{season} IS OVER";
+            //_title.text = $"{season} IS OVER";
             FillKingResults();
             FillPriestResults();
+
+            var kingsResult = _king.GetFilledResourses().Count;
+            var priestResult = _priest.GetFilledResourses().Count;
+
+            if (kingsResult > priestResult)
+            {
+                _score.Item1++;
+            }
+            else
+            {
+                _score.Item2++;
+            }
+
+            _scoreText.text = $"{_score.Item1} : {_score.Item2}";
         }
 
         private void FillKingResults()
