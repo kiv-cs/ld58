@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -24,6 +25,8 @@ namespace DefaultNamespace
         [SerializeField] private SplashesAnimator _splashAnimator;
         [SerializeField] private Animator _cameraShaker;
         [SerializeField] private Game _game;
+        [SerializeField] private Transform _priestTarget;
+        [SerializeField] private Transform _kingTarget;
 
         public void Initialize()
         {
@@ -69,6 +72,45 @@ namespace DefaultNamespace
             
             return resource;
         }
+        
+        private IResource SpawnAdding(ResourceType type, bool isPriest)
+        {
+            GameObject prefab = null;
+            switch (type)
+            {
+                case ResourceType.Human:
+                    prefab = _humanPrefab;
+                    break;
+                case ResourceType.Coin:
+                    prefab = _coinPrefab;
+                    break;
+                case ResourceType.Chicken:
+                    prefab = _chickenPrefab;
+                    break;
+                case ResourceType.Flower:
+                    prefab = _flowerPrefab;
+                    break;
+            }
+
+            var x = Random.Range(BottomLeft.position.x, TopRight.position.x);
+            var y = Random.Range(BottomLeft.position.y, TopRight.position.y);
+
+            var target = new Vector3(x, y, 0);
+            var spawnPoint = isPriest ? _priestTarget.position : _kingTarget.position;
+
+            var resourceObject = Instantiate(prefab, spawnPoint, Quaternion.identity);
+            var resource = resourceObject.GetComponent<IResource>();
+            resource.Initialize(this);
+
+            _resources.Add(resource);
+
+            resource.GameObject.transform.DOMove(target, .6f).OnComplete(() =>
+            {
+                //_splashAnimator.PlaySplash(resource.GameObject.transform.position, isPriest, true);
+            });
+
+            return resource;
+        }
 
         public void RemoveResourceOfType(ResourceType type, bool isPriest)
         {
@@ -96,8 +138,13 @@ namespace DefaultNamespace
             _resources.Remove(resource);
 
             _splashAnimator.PlaySplash(resource.GameObject.transform.position, isPriest, false);
-            
-            if (resource != null) Destroy(resource.GameObject);
+
+            if (resource != null)
+            {
+                var target = isPriest ? _priestTarget : _kingTarget;
+                resource.GameObject.transform.DOMove(target.position, .5f);
+                Destroy(resource.GameObject, .5f);
+            }
             
             _cameraShaker.speed = 1;
             _cameraShaker.Play("camera-shake");
@@ -127,9 +174,9 @@ namespace DefaultNamespace
                     break;
             }
             
-            var resource = Spawn(type);
+            var resource = SpawnAdding(type, isPriest);
             
-            _splashAnimator.PlaySplash(resource.GameObject.transform.position, isPriest, true);
+            
 
             //_cameraShaker.speed = 1;
             //_cameraShaker.Play("camera-shake");

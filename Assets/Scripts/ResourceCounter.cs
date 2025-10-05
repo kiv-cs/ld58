@@ -14,11 +14,13 @@ namespace DefaultNamespace
         public int CurrentCount;
         [SerializeField] private Village _village;
         [SerializeField] private ResourceType Type;
+        [SerializeField] private GameObject _buttonBack;
 
         private void Start()
         {
             _village = FindAnyObjectByType<Village>(FindObjectsInactive.Include);
             RedrawSlots();
+            if (_isPriest) _buttonBack.GetComponent<Button>().interactable = false;
         }
 
         public void Take()
@@ -28,6 +30,8 @@ namespace DefaultNamespace
                 CurrentCount++;
                 _village.RemoveResourceOfType(Type, _isPriest);
             }
+            
+            if (_isPriest) _buttonBack.GetComponent<Button>().interactable = (CurrentCount > 0);
 
             RedrawSlots();
         }
@@ -39,6 +43,10 @@ namespace DefaultNamespace
                 CurrentCount--;
                 _village.AddResourceOfType(Type, _isPriest);
             }
+            
+            
+            if (_isPriest) _buttonBack.GetComponent<Button>().interactable = (CurrentCount > 0);
+            
             
             RedrawSlots();
         }
