@@ -21,7 +21,7 @@ namespace DefaultNamespace
 
         private void InitializeSlider()
         {
-            _slider.maxValue = 400;
+            _slider.maxValue = 300;
         }
 
         public void BeginYear()
@@ -74,9 +74,6 @@ namespace DefaultNamespace
                     EndAutumn();
 
                 if (_currentDay == 300)
-                    EndWinter();
-
-                if (_currentDay == 400)
                     EndYear();
             }
         }
