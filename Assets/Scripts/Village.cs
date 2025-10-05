@@ -22,6 +22,7 @@ namespace DefaultNamespace
         [SerializeField] public Transform TopRight;
         [SerializeField] private List<IResource> _resources = new();
         [SerializeField] private SplashesAnimator _splashAnimator;
+        [SerializeField] private Animator _cameraShaker;
 
         private void Start()
         {
@@ -101,6 +102,9 @@ namespace DefaultNamespace
             
             if (resource != null) Destroy(resource.GameObject);
             
+            _cameraShaker.speed = 1;
+            _cameraShaker.Play("camera-shake");
+            
         }
 
         private void GameOver()
@@ -128,6 +132,9 @@ namespace DefaultNamespace
             var resource = Spawn(type);
             
             _splashAnimator.PlaySplash(resource.GameObject.transform.position, isPriest, true);
+
+            //_cameraShaker.speed = 1;
+            //_cameraShaker.Play("camera-shake");
         }
     }
 
