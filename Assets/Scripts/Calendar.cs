@@ -16,7 +16,6 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            BeginYear();
             InitializeSlider();
         }
 

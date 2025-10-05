@@ -10,13 +10,9 @@ namespace DefaultNamespace
     {
         [SerializeField] private List<ResourceCounter> _resources;
         [SerializeField] private float _interval = 3;
+        [SerializeField] private float _greed = .6f;
         private Coroutine _moveCo;
         [SerializeField] private bool _isWorking = true;
-
-        private void Start()
-        {
-            BeginMoving();
-        }
 
         public void BeginMoving()
         {
@@ -26,7 +22,7 @@ namespace DefaultNamespace
         private void MoveRandom()
         {
             var resourceIndex = Random.Range(0, _resources.Count);
-            if (Random.value < .5f)
+            if (Random.value < _greed)
                 _resources[resourceIndex].Take();
             else
                 _resources[resourceIndex].Return();
