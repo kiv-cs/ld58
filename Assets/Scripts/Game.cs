@@ -34,6 +34,13 @@ namespace DefaultNamespace
             _currentSeason = 0;
         }
 
+        public void Continue()
+        {
+            _gameOverPanel.gameObject.SetActive(false);
+            _resultWindow.Hide();
+            StartEverything();
+        }
+
         public void GameOver(ResourceType resourceType)
         {
             Village.Stop();
@@ -68,6 +75,7 @@ namespace DefaultNamespace
 
         private void StartEverything()
         {
+            Calendar.SetSeason(_currentSeason);
             Calendar.RunYear();
 
             Enemy.ResetResourceCounters();

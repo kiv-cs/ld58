@@ -64,5 +64,10 @@ namespace DefaultNamespace
         {
             StopCoroutine(_yearCo);
         }
+
+        public void SetSeason(int currentSeason)
+        {
+            _currentDay = currentSeason * 100;
+        }
     }
 }
