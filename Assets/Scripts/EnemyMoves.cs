@@ -47,5 +47,10 @@ namespace DefaultNamespace
 
             return result;
         }
+
+        public void Stop()
+        {
+            StopCoroutine(_moveCo);
+        }
     }
 }

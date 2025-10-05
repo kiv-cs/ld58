@@ -39,6 +39,7 @@ namespace DefaultNamespace
                 CurrentCount--;
                 _village.AddResourceOfType(Type, _isPriest);
             }
+            
             RedrawSlots();
         }
 

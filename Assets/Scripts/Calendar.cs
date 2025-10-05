@@ -77,5 +77,10 @@ namespace DefaultNamespace
                     EndYear();
             }
         }
+
+        public void Stop()
+        {
+            StopCoroutine(_yearCo);
+        }
     }
 }

@@ -23,11 +23,7 @@ namespace DefaultNamespace
         [SerializeField] private List<IResource> _resources = new();
         [SerializeField] private SplashesAnimator _splashAnimator;
         [SerializeField] private Animator _cameraShaker;
-
-        private void Start()
-        {
-            Initialize();
-        }
+        [SerializeField] private Game _game;
 
         public void Initialize()
         {
@@ -79,19 +75,19 @@ namespace DefaultNamespace
             {
                 case ResourceType.Human:
                     _humanCount--;
-                    if(_humanCount <= 0) GameOver();
+                    if(_humanCount <= 0) GameOver(ResourceType.Human);
                     break;
                 case ResourceType.Coin:
                     _coinCount--;
-                    if(_coinCount <= 0) GameOver();
+                    if(_coinCount <= 0) GameOver(ResourceType.Coin);
                     break;
                 case ResourceType.Chicken:
-                    _coinCount--;
-                    if(_coinCount <= 0) GameOver();
+                    _chickenCount--;
+                    if(_chickenCount <= 0) GameOver(ResourceType.Chicken);
                     break;
                 case ResourceType.Flower:
                     _flowerCount--;
-                    if(_flowerCount <= 0) GameOver();
+                    if(_flowerCount <= 0) GameOver(ResourceType.Flower);
                     break;
             }
 
@@ -107,8 +103,9 @@ namespace DefaultNamespace
             
         }
 
-        private void GameOver()
+        private void GameOver(ResourceType resourceType)
         {
+            _game.GameOver(resourceType);
         }
 
         public void AddResourceOfType(ResourceType type, bool isPriest)
@@ -135,6 +132,14 @@ namespace DefaultNamespace
 
             //_cameraShaker.speed = 1;
             //_cameraShaker.Play("camera-shake");
+        }
+
+        public void Stop()
+        {
+            foreach (var resource in _resources)
+            {
+                Destroy(resource.GameObject);
+            }
         }
     }
 
