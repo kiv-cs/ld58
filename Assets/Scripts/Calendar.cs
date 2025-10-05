@@ -13,6 +13,7 @@ namespace DefaultNamespace
         [SerializeField] private bool _isWorking;
         [SerializeField] private Slider _slider;
         [SerializeField] private ResultWindow _resultWindow;
+        [SerializeField] private Game _game;
 
         private void Start()
         {
@@ -23,39 +24,20 @@ namespace DefaultNamespace
         {
             _slider.maxValue = 300;
         }
-
-        public void BeginYear()
+        
+        public void RunYear()
         {
             _yearCo = StartCoroutine(YearCo());
-            BeginSummer();
         }
 
-        private void BeginSummer()
+        private void OpenResultWindow()
         {
+            _game.SeasonEnded();
         }
 
-        private void EndSummer()
+        private void EndSeason()
         {
-            OpenResultWindow("SUMMER");
-        }
-
-        private void EndAutumn()
-        {
-            OpenResultWindow("AUTUMN");
-        }
-
-        private void EndWinter()
-        {
-            OpenResultWindow("WINTER");
-        }
-
-        private void EndYear()
-        {
-        }
-
-        private void OpenResultWindow(string season)
-        {
-            _resultWindow.Show(season);
+            OpenResultWindow();
         }
 
         private IEnumerator YearCo()
@@ -68,13 +50,13 @@ namespace DefaultNamespace
                 _slider.value = _currentDay;
 
                 if (_currentDay == 100)
-                    EndSummer();
+                    EndSeason();
 
                 if (_currentDay == 200)
-                    EndAutumn();
+                    EndSeason();
 
                 if (_currentDay == 300)
-                    EndYear();
+                    EndSeason();
             }
         }
 

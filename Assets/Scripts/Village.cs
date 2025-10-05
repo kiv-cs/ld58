@@ -30,8 +30,9 @@ namespace DefaultNamespace
             SpawnInitialResourses();
         }
 
-        private void SpawnInitialResourses()
+        public void SpawnInitialResourses()
         {
+            _resources.Clear();
             for (int i = 0; i < _humanCount; i++) Spawn(ResourceType.Human);
             for (int i = 0; i < _coinCount; i++) Spawn(ResourceType.Coin);
             for (int i = 0; i < _chickenCount; i++) Spawn(ResourceType.Chicken);
@@ -140,6 +141,14 @@ namespace DefaultNamespace
             {
                 Destroy(resource.GameObject);
             }
+        }
+
+        public void InitializeParametres(SeasonParams seasonParams)
+        {
+            _humanCount = seasonParams.HumansCount;
+            _coinCount = seasonParams.CoinsCount;
+            _chickenCount = seasonParams.ChickensCount;
+            _flowerCount = seasonParams.FlowersCount;
         }
     }
 

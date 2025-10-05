@@ -52,5 +52,24 @@ namespace DefaultNamespace
         {
             StopCoroutine(_moveCo);
         }
+
+        public void Continue()
+        {
+            _moveCo = StartCoroutine(MoveCo());
+        }
+
+        public void InitializeParametres(float kingGreed, float kingIntervals)
+        {
+            _greed = kingGreed;
+            _interval = kingIntervals;
+        }
+
+        public void ResetResourceCounters()
+        {
+            foreach (var resource in _resources)
+            {
+                resource.Reset();
+            }
+        }
     }
 }

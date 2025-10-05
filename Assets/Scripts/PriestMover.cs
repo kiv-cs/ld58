@@ -20,5 +20,13 @@ namespace DefaultNamespace
 
             return result;
         }
+
+        public void ResetResourceCounters()
+        {
+            foreach (var resource in _resources)
+            {
+                resource.Reset();
+            }
+        }
     }
 }

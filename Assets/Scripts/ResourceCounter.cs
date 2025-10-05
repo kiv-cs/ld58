@@ -64,6 +64,12 @@ namespace DefaultNamespace
 
             return result;
         }
+
+        public void Reset()
+        {
+            CurrentCount = 0;
+            RedrawSlots();
+        }
     }
 
     public enum ResourceType

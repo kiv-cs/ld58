@@ -16,8 +16,12 @@ namespace DefaultNamespace
         [SerializeField] private List<Image>  _priestResultSlots;
         private (int, int) _score = (0, 0);
         [SerializeField] private TextMeshProUGUI _scoreText;
+        [SerializeField] private GameObject _kingWinText;
+        [SerializeField] private GameObject _priestWinText;
+        [SerializeField] private GameObject _kingLoseText;
+        [SerializeField] private GameObject _priestLoseText;
 
-        public void Show(string season)
+        public void Show()
         {
             _window.SetActive(true);
             //_title.text = $"{season} IS OVER";
@@ -30,10 +34,18 @@ namespace DefaultNamespace
             if (kingsResult > priestResult)
             {
                 _score.Item1++;
+                _kingWinText.SetActive(true);
+                _priestWinText.SetActive(false);
+                _kingLoseText.SetActive(false);
+                _priestLoseText.SetActive(true);
             }
             else
             {
                 _score.Item2++;
+                _kingWinText.SetActive(false);
+                _priestWinText.SetActive(true);
+                _kingLoseText.SetActive(true);
+                _priestLoseText.SetActive(false);
             }
 
             _scoreText.text = $"{_score.Item1} : {_score.Item2}";
@@ -69,6 +81,11 @@ namespace DefaultNamespace
                     _priestResultSlots[i].sprite = _emptySprite;
                 }
             }
+        }
+
+        public void Hide()
+        {
+            _window.SetActive(false);
         }
     }
 }
