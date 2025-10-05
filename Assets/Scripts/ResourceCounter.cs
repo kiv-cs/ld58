@@ -11,27 +11,32 @@ namespace DefaultNamespace
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Sprite _emptySprite;
         public int CurrentCount;
+        [SerializeField] private Village _village;
+        [SerializeField] private ResourceType Type;
 
         private void Start()
         {
+            _village = FindAnyObjectByType<Village>(FindObjectsInactive.Include);
             RedrawSlots();
         }
 
-        public void Add()
+        public void Take()
         {
             if (CurrentCount < 5)
             {
                 CurrentCount++;
+                _village.RemoveResourceOfType(Type);
             }
 
             RedrawSlots();
         }
 
-        public void Remove()
+        public void Return()
         {
             if (CurrentCount > 0)
             {
                 CurrentCount--;
+                _village.AddResourceOfType(Type);
             }
             RedrawSlots();
         }
@@ -57,5 +62,13 @@ namespace DefaultNamespace
 
             return result;
         }
+    }
+
+    public enum ResourceType
+    {
+        Human = 0,
+        Coin = 10,
+        Chicken = 20,
+        Flower = 30
     }
 }

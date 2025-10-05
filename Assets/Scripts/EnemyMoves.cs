@@ -27,9 +27,9 @@ namespace DefaultNamespace
         {
             var resourceIndex = Random.Range(0, _resources.Count);
             if (Random.value < .5f)
-                _resources[resourceIndex].Add();
+                _resources[resourceIndex].Take();
             else
-                _resources[resourceIndex].Remove();
+                _resources[resourceIndex].Return();
         }
 
         private IEnumerator MoveCo()
