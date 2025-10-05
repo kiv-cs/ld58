@@ -7,6 +7,7 @@ namespace DefaultNamespace
 {
     public class ResourceCounter : MonoBehaviour
     {
+        [SerializeField] private bool _isPriest;
         [SerializeField] private List<Image> _slots;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Sprite _emptySprite;
@@ -25,7 +26,7 @@ namespace DefaultNamespace
             if (CurrentCount < 5)
             {
                 CurrentCount++;
-                _village.RemoveResourceOfType(Type);
+                _village.RemoveResourceOfType(Type, _isPriest);
             }
 
             RedrawSlots();
@@ -36,7 +37,7 @@ namespace DefaultNamespace
             if (CurrentCount > 0)
             {
                 CurrentCount--;
-                _village.AddResourceOfType(Type);
+                _village.AddResourceOfType(Type, _isPriest);
             }
             RedrawSlots();
         }

@@ -21,6 +21,7 @@ namespace DefaultNamespace
         [SerializeField] public Transform BottomLeft;
         [SerializeField] public Transform TopRight;
         [SerializeField] private List<IResource> _resources = new();
+        [SerializeField] private SplashesAnimator _splashAnimator;
 
         private void Start()
         {
@@ -40,7 +41,7 @@ namespace DefaultNamespace
             for (int i = 0; i < _flowerCount; i++) Spawn(ResourceType.Flower);
         }
 
-        private void Spawn(ResourceType type)
+        private IResource Spawn(ResourceType type)
         {
             GameObject prefab = null;
             switch (type)
@@ -67,9 +68,11 @@ namespace DefaultNamespace
             resource.Initialize(this);
 
             _resources.Add(resource);
+            
+            return resource;
         }
 
-        public void RemoveResourceOfType(ResourceType type)
+        public void RemoveResourceOfType(ResourceType type, bool isPriest)
         {
             switch (type)
             {
@@ -93,14 +96,18 @@ namespace DefaultNamespace
 
             IResource resource = _resources.FirstOrDefault(x => x.Type == type);
             _resources.Remove(resource);
+
+            _splashAnimator.PlaySplash(resource.GameObject.transform.position, isPriest, false);
+            
             if (resource != null) Destroy(resource.GameObject);
+            
         }
 
         private void GameOver()
         {
         }
 
-        public void AddResourceOfType(ResourceType type)
+        public void AddResourceOfType(ResourceType type, bool isPriest)
         {
             switch (type)
             {
@@ -118,7 +125,9 @@ namespace DefaultNamespace
                     break;
             }
             
-            Spawn(type);
+            var resource = Spawn(type);
+            
+            _splashAnimator.PlaySplash(resource.GameObject.transform.position, isPriest, true);
         }
     }
 
