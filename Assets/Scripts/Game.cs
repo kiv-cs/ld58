@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
@@ -15,6 +16,8 @@ namespace DefaultNamespace
         [SerializeField] private ResultWindow _resultWindow;
         private int _currentSeason;
         [SerializeField] private List<SeasonParams> _seasonParamsList;
+        [SerializeField] private GameObject _loseScreen;
+        [SerializeField] private GameObject _winScreen;
 
 
         private void Start()
@@ -91,6 +94,19 @@ namespace DefaultNamespace
 
         private void WinGame()
         {
+            if (_resultWindow.Score.Item1 > _resultWindow.Score.Item2)
+            {
+                _loseScreen.SetActive(true);
+            }
+            else
+            {
+                _winScreen.SetActive(true);
+            }
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
