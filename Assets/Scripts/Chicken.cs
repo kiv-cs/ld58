@@ -14,6 +14,7 @@ namespace DefaultNamespace
             Type = _type;
             GameObject = gameObject;
             _village = village;
+            _speed *= Random.Range(.8f, 1.2f);
             StartMoving();
         }
 
@@ -24,6 +25,17 @@ namespace DefaultNamespace
         {
             var x = Random.Range(_village.BottomLeft.position.x, _village.TopRight.position.x);
             var y = Random.Range(_village.BottomLeft.position.y, _village.TopRight.position.y);
+
+            if (x < transform.position.x)
+            {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y,
+                    transform.localScale.x);
+            }
+            else
+            {
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y,
+                    transform.localScale.x);
+            }
 
             Vector3 target = new Vector3(x, y, 0);
             float time = Vector3.Distance(transform.position, target) / _speed;

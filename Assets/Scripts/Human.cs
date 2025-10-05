@@ -18,6 +18,7 @@ namespace DefaultNamespace
             _village = village;
             Type = _type;
             GameObject = gameObject;
+            _speed *= Random.Range(.8f, 1.2f);
             StartMoving();
         }
 
@@ -33,6 +34,17 @@ namespace DefaultNamespace
             float time = Vector3.Distance(transform.position, target) / _speed;
             float delay = Random.Range(1f, 3f);
             transform.DOMove(target, time).SetDelay(delay).OnComplete(StartMoving).SetEase(Ease.Linear);
+            
+            if (x < transform.position.x)
+            {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y,
+                    transform.localScale.x);
+            }
+            else
+            {
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y,
+                    transform.localScale.x);
+            }
         }
 
         private IEnumerator MoveCo()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -5,7 +6,7 @@ namespace DefaultNamespace
     public class Flower : MonoBehaviour, IResource
     {
         [SerializeField] private ResourceType _type;
-
+ 
         public void Initialize(Village village)
         {
             Type = _type;
