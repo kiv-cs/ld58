@@ -81,15 +81,15 @@ namespace DefaultNamespace
             Calendar.SetSeason(_currentSeason);
             Calendar.RunYear();
 
-            Enemy.ResetResourceCounters();
-            Priest.ResetResourceCounters();
-
             Enemy.InitializeParametres(_seasonParamsList[_currentSeason].KingGreed,
                 _seasonParamsList[_currentSeason].KingIntervals);
             Enemy.Continue();
 
             Village.InitializeParametres(_seasonParamsList[_currentSeason]);
             Village.SpawnInitialResourses();
+            
+            Enemy.ResetResourceCounters();
+            Priest.ResetResourceCounters();
         }
 
         private void WinGame()

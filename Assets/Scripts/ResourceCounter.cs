@@ -77,6 +77,7 @@ namespace DefaultNamespace
         {
             CurrentCount = 0;
             RedrawSlots();
+            if (_isPriest) _buttonBack.GetComponent<Button>().interactable = false;
         }
     }
 
